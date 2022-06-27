@@ -46,27 +46,29 @@
         android:text="ATV:"
         android:textSize="16sp"
         />
-    <LinearLayout
+    
+    <com.google.android.material.button.MaterialButtonToggleGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ToggleButton
-            android:layout_width="0dp"
+        android:id="@+id/toggleButtonGroup"
+        app:singleSelection="true">
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/switchFinal"
-            android:textOff="Final"
-            android:textOn="Final"
-            />
-        <ToggleButton
-            android:layout_width="0dp"
+            android:text="Update"
             android:layout_weight="1"
             android:id="@+id/switchUpdate"
-            android:layout_height="wrap_content"
-            android:textOff="Update"
-            android:textOn="Update"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             />
-    </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Final"
+            android:layout_weight="1"
+            android:id="@+id/switchFinal"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <Button
         android:layout_width="match_parent"
