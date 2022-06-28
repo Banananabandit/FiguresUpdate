@@ -42,12 +42,12 @@ class MainActivity : AppCompatActivity() {
             when (checkedId) {
                 R.id.switchUpdate -> {
                     if (isChecked) {
-                        resultMessage = "Update £$result $numberOfCustomers trans $finalAtvFigure ATV"
+                        resultMessage = "Update £$result $numberOfCustomers trans £$finalAtvFigure ATV"
                     }
                 }
                 R.id.switchFinal -> {
                     if (isChecked) {
-                        resultMessage = "Finished today on £$result $numberOfCustomers trans $finalAtvFigure ATV"
+                        resultMessage = "Finished today on £$result $numberOfCustomers trans £$finalAtvFigure ATV"
                     }
                 }
                 else -> resultMessage = "Can you please choose"
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         figureInput?.addTextChangedListener {
             if (figureInput?.text?.isNotEmpty() == true) {
                 result = (figureInput?.text.toString().toDouble() / 1.2).roundToInt()
-                figureResult?.text = result.toString()
+                figureResult?.text = "Result: ${result.toString()}"
             }
         }
 
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 val df = DecimalFormat("#.##")
                 df.roundingMode = RoundingMode.CEILING
                 numberOfCustomers = numberOfCustInput?.text.toString()
-                atvResult?.text = df.format(atvInput).toString()
+                atvResult?.text = "ATV: ${df.format(atvInput)}"
                 finalAtvFigure = df.format(atvInput).toString()
             }
         }
