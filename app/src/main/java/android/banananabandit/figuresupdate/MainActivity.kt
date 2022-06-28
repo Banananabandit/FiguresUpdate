@@ -1,16 +1,15 @@
 package android.banananabandit.figuresupdate
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.button.MaterialButtonToggleGroup
-import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
-import javax.script.ScriptEngineManager
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
@@ -42,8 +41,19 @@ class MainActivity : AppCompatActivity() {
         toggleButtonGroup.addOnButtonCheckedListener { toggleButtonGroup, checkedId, isChecked ->
 
             when (checkedId) {
-                R.id.switchUpdate -> resultMessage = "Update £$roundResult $numberOfCustomers trans $finalAtvFigure ATV"
-                R.id.switchFinal -> resultMessage = "Finished today on £$roundResult $numberOfCustomers trans $finalAtvFigure ATV"
+                R.id.switchUpdate -> {
+                    if (isChecked) {
+                        resultMessage = "Update £$roundResult $numberOfCustomers trans $finalAtvFigure ATV"
+                        Log.d(TAG, "onCreate: switched to Update $resultMessage")
+                    }
+                }
+                R.id.switchFinal -> {
+                    if (isChecked) {
+                        resultMessage = "Finished today on £$roundResult $numberOfCustomers trans $finalAtvFigure ATV"
+                        Log.d(TAG, "onCreate: switched to Final Message $resultMessage")
+                    }
+                }
+                else -> resultMessage = "Can you please choose"
             }
     }
 
@@ -56,19 +66,22 @@ class MainActivity : AppCompatActivity() {
         atvResult = findViewById(R.id.atvResult)
 
         figureInput?.addTextChangedListener {
-
-            result = (figureInput?.text.toString().toDouble() / 1.2)
-            roundResult = result?.roundToInt()
-            figureResult?.text = roundResult.toString()
+            if (figureInput?.text?.isNotEmpty() == true) {
+                result = (figureInput?.text.toString().toDouble() / 1.2)
+                roundResult = result?.roundToInt()
+                figureResult?.text = roundResult.toString()
+            }
         }
 
         numberOfCustInput?.addTextChangedListener {
-            atvInput = roundResult?.div(numberOfCustInput?.text.toString().toDouble())
-            val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
-            numberOfCustomers = numberOfCustInput?.text.toString()
-            atvResult?.text = df.format(atvInput).toString()
-            finalAtvFigure = df.format(atvInput).toString()
+            if (numberOfCustInput?.text?.isNotEmpty() == true) {
+                atvInput = roundResult?.div(numberOfCustInput?.text.toString().toDouble())
+                val df = DecimalFormat("#.##")
+                df.roundingMode = RoundingMode.CEILING
+                numberOfCustomers = numberOfCustInput?.text.toString()
+                atvResult?.text = df.format(atvInput).toString()
+                finalAtvFigure = df.format(atvInput).toString()
+            }
         }
 
         shareButton?.setOnClickListener {
