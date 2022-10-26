@@ -46,14 +46,23 @@ class MainActivity : AppCompatActivity() {
             when (checkedId) {
                 R.id.switchUpdate -> {
                     if (isChecked) {
-                        resultMessage =
-                            "Update £$result $numberOfCustomers trans £$finalAtvFigure ATV"
+                        if (figureInput?.text!!.isNotEmpty() && numberOfCustInput?.text!!.isNotEmpty()){
+                            resultMessage =
+                                "Update £$result $numberOfCustomers trans £$finalAtvFigure ATV"
+                        } else {
+                            toggleButtonGroup.clearChecked()
+                        }
                     }
                 }
                 R.id.switchFinal -> {
                     if (isChecked) {
-                        resultMessage =
-                            "Finished today on £$result $numberOfCustomers trans £$finalAtvFigure ATV"
+                        if (figureInput?.text!!.isNotEmpty() && numberOfCustInput?.text!!.isNotEmpty()){
+                            resultMessage =
+                                "Finished today on £$result $numberOfCustomers trans £$finalAtvFigure ATV"
+                        } else {
+                            toggleButtonGroup.clearChecked()
+                        }
+
                     }
                 }
                 else -> resultMessage = "Can you please choose"
@@ -106,5 +115,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        figureInput?.requestFocus()
+    }
 }
