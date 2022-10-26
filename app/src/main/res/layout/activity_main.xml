@@ -82,4 +82,12 @@
         android:id="@+id/shareButton"
         android:text="SHARE"
         android:textSize="41sp" />
+    <ImageButton
+        android:id="@+id/figuresResetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_refresh_24"
+        android:layout_gravity="right"
+        />
+
 </LinearLayout>
