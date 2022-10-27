@@ -20,6 +20,15 @@ class MainActivity : AppCompatActivity() {
     private var numberOfCustomers: String? = null
     private var resultMessage: String? = null
 
+    // Binding refactoring Stage 1
+    lateinit var figureInput: EditText
+    lateinit var numberOfCust: EditText
+    lateinit var figureResult: TextView
+    lateinit var atvResult: TextView
+    lateinit var figuresResetButton: ImageButton
+    lateinit var shareButton: Button
+    lateinit var toggleButtonGroup: MaterialButtonToggleGroup
+
     lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,13 +36,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // ViewBinding refactoring stage 2 -- after this i can remove all of the binding. calls
+        binding.let {
+            figureInput = it.figureInput
+            numberOfCust = it.numberOfCust
+            figureResult = it.figureResult
+            atvResult = it.atvResult
+            figuresResetButton = it.figuresResetButton
+            shareButton = it.shareButton
+            toggleButtonGroup = it.toggleButtonGroup
+        }
 
-        binding.toggleButtonGroup.addOnButtonCheckedListener { toggleButtonGroup, checkedId, isChecked ->
+        toggleButtonGroup.addOnButtonCheckedListener { toggleButtonGroup, checkedId, isChecked ->
 
             when (checkedId) {
                 R.id.switchUpdate -> {
                     if (isChecked) {
-                        if (binding.figureInput.text.isNotEmpty() && binding.numberOfCust.text.isNotEmpty()){
+                        if (figureInput.text.isNotEmpty() && numberOfCust.text.isNotEmpty()){
                             resultMessage =
                                 "Update £$result $numberOfCustomers trans £$finalAtvFigure ATV"
                         } else {
@@ -43,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.switchFinal -> {
                     if (isChecked) {
-                        if (binding.figureInput.text.isNotEmpty() && binding.numberOfCust.text.isNotEmpty()){
+                        if (figureInput.text.isNotEmpty() && numberOfCust.text.isNotEmpty()){
                             resultMessage =
                                 "Finished today on £$result $numberOfCustomers trans £$finalAtvFigure ATV"
                         } else {
@@ -56,36 +75,36 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.figureInput.addTextChangedListener {
-            if (binding.figureInput.text.isNotEmpty()) {
-                result = (binding.figureInput.text.toString().toDouble() / 1.2).roundToInt()
-                binding.figureResult.text = "Result: ${result.toString()}"
+        figureInput.addTextChangedListener {
+            if (figureInput.text.isNotEmpty()) {
+                result = (figureInput.text.toString().toDouble() / 1.2).roundToInt()
+                figureResult.text = "Result: ${result.toString()}"
             }
         }
 
-        binding.numberOfCust.addTextChangedListener {
-            if (binding.numberOfCust.text.isNotEmpty()) {
-                atvInput = result?.div(binding.numberOfCust.text.toString().toDouble())
+        numberOfCust.addTextChangedListener {
+            if (numberOfCust.text.isNotEmpty()) {
+                atvInput = result?.div(numberOfCust.text.toString().toDouble())
                 val df = DecimalFormat("#.##")
                 df.roundingMode = RoundingMode.CEILING
-                numberOfCustomers = binding.numberOfCust.text.toString()
-                binding.atvResult.text = "ATV: ${df.format(atvInput)}"
+                numberOfCustomers = numberOfCust.text.toString()
+                atvResult.text = "ATV: ${df.format(atvInput)}"
                 finalAtvFigure = df.format(atvInput).toString()
             }
         }
 
-        binding.figuresResetButton.setOnClickListener {
-            binding.toggleButtonGroup.clearChecked()
+        figuresResetButton.setOnClickListener {
+            toggleButtonGroup.clearChecked()
 
-            binding.numberOfCust.text.clear()
-            binding.figureInput.text.clear()
-            binding.figureInput.requestFocus()
+            numberOfCust.text.clear()
+            figureInput.text.clear()
+            figureInput.requestFocus()
 
-            binding.figureResult.text = "Result:"
-            binding.atvResult.text = "ATV:"
+            figureResult.text = "Result:"
+            atvResult.text = "ATV:"
         }
 
-        binding.shareButton.setOnClickListener {
+        shareButton.setOnClickListener {
             whatsAppResultShare()
         }
     }
@@ -102,6 +121,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        binding.figureInput.requestFocus()
+        figureInput.requestFocus()
     }
 }
