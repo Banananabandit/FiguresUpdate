@@ -115,7 +115,6 @@ class DailyUpdateFragment : Fragment() {
         return binding.root
     }
         private fun whatsAppResultShare() {
-
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
             intent.putExtra(Intent.EXTRA_TEXT, resultMessage)
@@ -129,4 +128,8 @@ class DailyUpdateFragment : Fragment() {
             figureInput.requestFocus()
         }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
