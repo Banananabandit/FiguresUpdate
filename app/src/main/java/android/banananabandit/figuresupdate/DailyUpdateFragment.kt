@@ -25,7 +25,6 @@ class DailyUpdateFragment : Fragment() {
     private var numberOfCustomers: String? = null
     private var resultMessage: String? = null
 
-    // Binding refactoring Stage 1
     lateinit var figureInput: EditText
     lateinit var numberOfCust: EditText
     lateinit var figureResult: TextView
@@ -41,6 +40,7 @@ class DailyUpdateFragment : Fragment() {
 
         _binding = FragmentDailyUpdateBinding.inflate(inflater, container, false)
 
+        // Setting up binding
         binding.let {
             figureInput = it.figureInput
             numberOfCust = it.numberOfCust
@@ -53,10 +53,12 @@ class DailyUpdateFragment : Fragment() {
 
         toggleButtonGroup.addOnButtonCheckedListener { toggleButtonGroup, checkedId, isChecked ->
 
+            val entriesNotEmpty = figureInput.text.isNotEmpty() && numberOfCust.text.isNotEmpty()
+
             when (checkedId) {
                 R.id.switchUpdate -> {
                     if (isChecked) {
-                        if (figureInput.text.isNotEmpty() && numberOfCust.text.isNotEmpty()){
+                        if (entriesNotEmpty){
                             resultMessage =
                                 "Update £$result $numberOfCustomers trans £$finalAtvFigure ATV"
                         } else {
@@ -66,7 +68,7 @@ class DailyUpdateFragment : Fragment() {
                 }
                 R.id.switchFinal -> {
                     if (isChecked) {
-                        if (figureInput.text.isNotEmpty() && numberOfCust.text.isNotEmpty()){
+                        if (entriesNotEmpty){
                             resultMessage =
                                 "Finished today on £$result $numberOfCustomers trans £$finalAtvFigure ATV"
                         } else {
@@ -81,31 +83,18 @@ class DailyUpdateFragment : Fragment() {
 
         figureInput.addTextChangedListener {
             if (figureInput.text.isNotEmpty()) {
-                result = (figureInput.text.toString().toDouble() / 1.2).roundToInt()
-                figureResult.text = "Result: ${result.toString()}"
+                updateFiguresTextView()
             }
         }
 
         numberOfCust.addTextChangedListener {
             if (numberOfCust.text.isNotEmpty()) {
-                atvInput = result?.div(numberOfCust.text.toString().toDouble())
-                val df = DecimalFormat("#.##")
-                df.roundingMode = RoundingMode.CEILING
-                numberOfCustomers = numberOfCust.text.toString()
-                atvResult.text = "ATV: ${df.format(atvInput)}"
-                finalAtvFigure = df.format(atvInput).toString()
+                updateAtvTextView()
             }
         }
 
         figuresResetButton.setOnClickListener {
-            toggleButtonGroup.clearChecked()
-
-            numberOfCust.text.clear()
-            figureInput.text.clear()
-            figureInput.requestFocus()
-
-            figureResult.text = "Result:"
-            atvResult.text = "ATV:"
+            resetScreen()
         }
 
         shareButton.setOnClickListener {
@@ -114,7 +103,34 @@ class DailyUpdateFragment : Fragment() {
 
         return binding.root
     }
-        private fun whatsAppResultShare() {
+
+    private fun resetScreen() {
+        toggleButtonGroup.clearChecked()
+
+        numberOfCust.text.clear()
+        figureInput.text.clear()
+        figureInput.requestFocus()
+
+        figureResult.text = "Result:"
+        atvResult.text = "ATV:"
+    }
+
+    private fun updateAtvTextView() {
+        // Extract into a method
+        atvInput = result?.div(numberOfCust.text.toString().toDouble())
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.CEILING
+        numberOfCustomers = numberOfCust.text.toString()
+        atvResult.text = "ATV: ${df.format(atvInput)}"
+        finalAtvFigure = df.format(atvInput).toString()
+    }
+
+    private fun updateFiguresTextView() {
+        result = (figureInput.text.toString().toDouble() / 1.2).roundToInt()
+        figureResult.text = "Result: ${result.toString()}"
+    }
+
+    private fun whatsAppResultShare() {
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
             intent.putExtra(Intent.EXTRA_TEXT, resultMessage)
