@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dailyUpdate"
+        android:icon="@drawable/ic_baseline_attach_money_24"
+        android:title="Daily Update"/>
+    <item
+        android:id="@+id/weeklyUpdate"
+        android:icon="@drawable/ic_baseline_account_balance_24"
+        android:title="Weekly Update"/>
+</menu>
