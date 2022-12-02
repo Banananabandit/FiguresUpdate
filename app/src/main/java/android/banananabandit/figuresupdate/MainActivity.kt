@@ -3,22 +3,45 @@ package android.banananabandit.figuresupdate
 import android.banananabandit.figuresupdate.databinding.ActivityMainBinding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding // Keep this one in case we still need it
+    lateinit var bottomNav: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(false)
-                add<DailyUpdateFragment>(R.id.fragment_container_view)
-            }
-        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        loadFragment(DailyUpdateFragment())
+        bottomNav = binding.bottomNav
+        bottomNav.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.dailyUpdate ->{
+                    loadFragment(DailyUpdateFragment())
+                    return@setOnItemSelectedListener true
+                }
+                R.id.weeklyUpdate -> {
+                    loadFragment(WeeklyUpdateFragment())
+                    return@setOnItemSelectedListener true
+                }
+                else -> {
+                    loadFragment(DailyUpdateFragment())
+                    return@setOnItemSelectedListener true
+                }
+
+            }
+        }
     }
+
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container_view, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
 }
