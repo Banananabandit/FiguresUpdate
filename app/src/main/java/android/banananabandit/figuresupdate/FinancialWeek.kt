@@ -4,6 +4,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 data class FinancialWeek(
+    // TODO: add date range for a given week
     val weekNumber: Int,
     val weekTarget: Int,
     val weekTargetAchieved: Int,
