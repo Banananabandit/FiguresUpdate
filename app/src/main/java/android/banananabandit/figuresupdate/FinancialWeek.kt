@@ -29,7 +29,7 @@ data class FinancialWeek(
             val listOfWeeks = ArrayList<FinancialWeek>()
             for (i in 0..number) {
                 // TODO: later on can assign random values to the days of the week for the testing purposes before switching to room
-                listOfWeeks.add(FinancialWeek(weekNumeral++, rand(3000,2000), rand(3000, 2000),
+                listOfWeeks.add(FinancialWeek(weekNumeral++, rand(2000,3000), rand(2000, 3000),
                     0, 0, 0, 0,
                     0 ,0 ,0,))
             }
