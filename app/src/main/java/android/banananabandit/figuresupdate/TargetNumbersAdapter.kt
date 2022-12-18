@@ -2,6 +2,7 @@ package android.banananabandit.figuresupdate
 
 import android.banananabandit.figuresupdate.databinding.WeekListItemBinding
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 // I wonder if the adapter will work the same way for tha fragment
@@ -12,6 +13,14 @@ class TargetNumbersAdapter(private val mWeekTargets: ArrayList<FinancialWeek>): 
             itemBinding.weekNumber.text = week.weekNumber.toString()
             itemBinding.budgetAmountNumber.text = week.weekTarget.toString()
             itemBinding.budgetAchievedNumber.text = week.weekTargetAchieved.toString()
+            if (week.getIsTargetMissed()) {
+                itemBinding.targetMissed.visibility = View.VISIBLE
+                itemBinding.targetAchieved.visibility = View.GONE
+            } else {
+                itemBinding.targetMissed.visibility = View.GONE
+                itemBinding.targetAchieved.visibility = View.VISIBLE
+            }
+
             // Need to get the logic for changing the color of the iv- possibly a separate fun
         }
     }

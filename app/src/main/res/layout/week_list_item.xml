@@ -70,8 +70,8 @@
 
     <ImageView
         android:id="@+id/target_achieved"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:src="@drawable/ic_baseline_achieved_24"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="8dp"
@@ -81,8 +81,8 @@
 
     <ImageView
         android:id="@+id/target_missed"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:src="@drawable/ic_baseline_missed_24"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="8dp"
