@@ -1,7 +1,6 @@
 package android.banananabandit.figuresupdate
 
 import java.util.*
-import kotlin.collections.ArrayList
 
 data class FinancialWeek(
     // TODO: add date range for a given week
@@ -28,19 +27,12 @@ data class FinancialWeek(
         private val random = Random()
 
         // Need to find a way to initialize weeklyTargetIsAchieved
-        fun generateListOfWeeks(number: Int): ArrayList<FinancialWeek> {
-            val listOfWeeks = ArrayList<FinancialWeek>()
-            for (i in 0..number) {
-                // TODO: later on can assign random values to the days of the week for the testing purposes before switching to room
-                listOfWeeks.add(
-                    FinancialWeek(
-                        weekNumeral++, rand(2000, 3000), rand(2000, 3000),
-                        false, 0, 0, 0, 0,
-                        0, 0, 0,
-                    )
-                )
-            }
-            return listOfWeeks
+        fun generateWeek(): FinancialWeek {
+            return FinancialWeek(
+                weekNumeral++, rand(2000, 3000), rand(2000, 3000),
+                false, 0, 0, 0, 0,
+                0, 0, 0,
+            )
         }
 
         private fun rand(from: Int, to: Int): Int {

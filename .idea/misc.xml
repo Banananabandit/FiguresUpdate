@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.15729166666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25625" />
+        <entry key="app/src/main/res/layout/create_new_week_dialog.xml" value="0.2703125" />
         <entry key="app/src/main/res/layout/fragment_daily_update.xml" value="0.2630208333333333" />
         <entry key="app/src/main/res/layout/fragment_weekly_progress_figures.xml" value="0.2630208333333333" />
         <entry key="app/src/main/res/layout/fragment_weekly_update.xml" value="0.2703125" />

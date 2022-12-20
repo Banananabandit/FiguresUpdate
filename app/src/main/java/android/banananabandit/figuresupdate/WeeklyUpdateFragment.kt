@@ -12,20 +12,21 @@ import com.google.android.material.snackbar.Snackbar
 class WeeklyUpdateFragment : Fragment() {
     private var _binding : FragmentWeeklyUpdateBinding? = null
     private val binding get() = _binding!!
+    private val listOfWeeks = ArrayList<FinancialWeek>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentWeeklyUpdateBinding.inflate(inflater, container, false)
 
-        val adapter = TargetNumbersAdapter(FinancialWeek.generateListOfWeeks(20))
+        val adapter = TargetNumbersAdapter(listOfWeeks)
         binding.rvWeekTargets.adapter = adapter
         binding.rvWeekTargets.layoutManager = LinearLayoutManager(context)
 
         val fab = binding.fab
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show()
+        fab.setOnClickListener {
+            val week = FinancialWeek.generateWeek()
+            listOfWeeks.add(week)
+            adapter.notifyDataSetChanged()
         }
 
         return binding.root
