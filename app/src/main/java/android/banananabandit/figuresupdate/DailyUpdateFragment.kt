@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.text.set
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.button.MaterialButtonToggleGroup
 import java.math.RoundingMode
@@ -103,6 +104,7 @@ class DailyUpdateFragment : Fragment() {
 
         return binding.root
     }
+
 
     private fun resetScreen() {
         toggleButtonGroup.clearChecked()
