@@ -29,7 +29,7 @@ data class FinancialWeek(
         // Need to find a way to initialize weeklyTargetIsAchieved
         fun generateWeek(): FinancialWeek {
             return FinancialWeek(
-                weekNumeral++, rand(2000, 3000), rand(2000, 3000),
+                0, rand(2000, 3000), rand(2000, 3000),
                 false, 0, 0, 0, 0,
                 0, 0, 0,
             )

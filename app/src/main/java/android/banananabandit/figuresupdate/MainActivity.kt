@@ -9,7 +9,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding // Keep this one in case we still need it
+    lateinit var binding: ActivityMainBinding
     lateinit var bottomNav: BottomNavigationView
 
     private val dailyUpdateFragment = DailyUpdateFragment()

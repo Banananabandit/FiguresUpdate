@@ -5,15 +5,23 @@ import android.banananabandit.figuresupdate.databinding.CreateNewWeekDialogBindi
 import android.banananabandit.figuresupdate.databinding.FragmentWeeklyUpdateBinding
 import android.content.ContentValues.TAG
 import android.opengl.Visibility
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.YearMonth
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class WeeklyUpdateFragment : Fragment() {
     private var _binding : FragmentWeeklyUpdateBinding? = null
@@ -39,9 +47,12 @@ class WeeklyUpdateFragment : Fragment() {
     private fun addNewWeekDialog() {
         val addWeekDialog = Dialog(requireContext(), R.style.Theme_AppCompat_Dialog)
         addWeekDialog.setCancelable(false)
+
         val binding = CreateNewWeekDialogBinding.inflate(layoutInflater)
         addWeekDialog.setContentView(binding.root)
-        // Here ween need to take info from the edit texts and put it into our array
+
+        binding.tvWeekNumber.text = getCurrentWeek().toString()
+
         binding.imgbtnEditWeekNumber.setOnClickListener {
             if (binding.tvWeekNumber.isVisible){
                 binding.tvWeekNumber.visibility = View.GONE
@@ -55,12 +66,15 @@ class WeeklyUpdateFragment : Fragment() {
 
         binding.btnDone.setOnClickListener {
             binding.tvWeekNumber.text = binding.etWeekNumber.text.toString()
-            // If the ET has the value then pass it on if not set it to zero
+
+            val currentWeek = getCurrentWeek()
+
             var weekNumber = 0
             var weekBudget= 0
             var weekAchievedAmount= 0
+
             weekNumber = if (binding.etWeekNumber.text.isBlank()) {
-                0
+                currentWeek.toInt()
             } else {
                 binding.tvWeekNumber.text.toString().toInt()
             }
@@ -77,13 +91,8 @@ class WeeklyUpdateFragment : Fragment() {
                 binding.etAchievedAmount.text.toString().toInt()
             }
 
-//            val weekNumber = binding.tvWeekNumber.text.toString().toInt()
-//            val weekBudget = binding.etBudgetAmount.text.toString().toInt()
-//            val weekAchievedAmount = binding.etAchievedAmount.text.toString().toInt()
-
             val newWeek = FinancialWeek(weekNumber, weekBudget, weekAchievedAmount, false, 0, 0, 0, 0, 0, 0, 0, false, false)
             listOfWeeks.add(newWeek)
-            // notify adapter dataset changed
             adapter.notifyDataSetChanged()
             addWeekDialog.dismiss()
 
@@ -94,7 +103,15 @@ class WeeklyUpdateFragment : Fragment() {
         addWeekDialog.show()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
+
+    private fun getCurrentWeek(): Long {
+        val currentTime = System.currentTimeMillis()
+        val c = Calendar.getInstance()
+        // To set the month and the day, it whould start with 0 as the first day
+        // Later on will need logic to set the year to a current financial year
+        c.set(2022, 3, 0)
+        val startOfFinancialYear = c.timeInMillis
+        return (currentTime - startOfFinancialYear) / 604800000
     }
+
 }
