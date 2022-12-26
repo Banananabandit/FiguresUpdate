@@ -12,10 +12,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.YearMonth
@@ -91,10 +93,26 @@ class WeeklyUpdateFragment : Fragment() {
                 binding.etAchievedAmount.text.toString().toInt()
             }
 
-            val newWeek = FinancialWeek(weekNumber, weekBudget, weekAchievedAmount, false, 0, 0, 0, 0, 0, 0, 0, false, false)
-            listOfWeeks.add(newWeek)
-            adapter.notifyDataSetChanged()
-            addWeekDialog.dismiss()
+            // The following for finding duplicate weeks was suggested by GPT3
+
+            var found = false
+
+            for (item in listOfWeeks){
+                if (item.weekNumber == weekNumber) {
+                    found = true
+                    break
+                }
+            }
+
+            if (found) {
+                Toast.makeText(context, "Week already exists", Toast.LENGTH_SHORT).show()
+            } else {
+                val newWeek = FinancialWeek(weekNumber, weekBudget, weekAchievedAmount, false, 0, 0, 0, 0, 0, 0, 0, false, false)
+                listOfWeeks.add(newWeek)
+                adapter.notifyDataSetChanged()
+                addWeekDialog.dismiss()
+            }
+
 
         }
         binding.btnCancel.setOnClickListener {
