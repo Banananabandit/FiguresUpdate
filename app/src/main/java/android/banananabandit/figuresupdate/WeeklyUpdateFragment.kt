@@ -3,25 +3,14 @@ package android.banananabandit.figuresupdate
 import android.app.Dialog
 import android.banananabandit.figuresupdate.databinding.CreateNewWeekDialogBinding
 import android.banananabandit.figuresupdate.databinding.FragmentWeeklyUpdateBinding
-import android.content.ContentValues.TAG
-import android.opengl.Visibility
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.YearMonth
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -71,29 +60,27 @@ class WeeklyUpdateFragment : Fragment() {
 
             val currentWeek = getCurrentWeek()
 
-            var weekNumber = 0
-            var weekBudget= 0
-            var weekAchievedAmount= 0
+//            var weekNumber = 0
+//            var weekBudget= 0
+//            var weekAchievedAmount= 0
 
-            weekNumber = if (binding.etWeekNumber.text.isBlank()) {
+            val weekNumber = if (binding.etWeekNumber.text.isBlank()) {
                 currentWeek.toInt()
             } else {
                 binding.tvWeekNumber.text.toString().toInt()
             }
 
-            weekBudget = if (binding.etBudgetAmount.text.isBlank()) {
+            val weekBudget = if (binding.etBudgetAmount.text.isBlank()) {
                 0
             } else {
                 binding.etBudgetAmount.text.toString().toInt()
             }
 
-            weekAchievedAmount = if (binding.etAchievedAmount.text.isBlank()) {
+            val weekAchievedAmount = if (binding.etAchievedAmount.text.isBlank()) {
                 0
             } else {
                 binding.etAchievedAmount.text.toString().toInt()
             }
-
-            // The following for finding duplicate weeks was suggested by GPT3
 
             var found = false
 
@@ -109,18 +96,27 @@ class WeeklyUpdateFragment : Fragment() {
             } else {
                 val newWeek = FinancialWeek(weekNumber, weekBudget, weekAchievedAmount, false, 0, 0, 0, 0, 0, 0, 0, false, false)
                 listOfWeeks.add(newWeek)
+                sortWeeks()
                 adapter.notifyDataSetChanged()
                 addWeekDialog.dismiss()
             }
 
 
         }
+
         binding.btnCancel.setOnClickListener {
             addWeekDialog.dismiss()
         }
         addWeekDialog.show()
     }
 
+    private fun sortWeeks() {
+        val sortedWeeks = listOfWeeks.sortedWith(compareBy { it.weekNumber })
+        listOfWeeks.clear()
+        for (i in sortedWeeks) {
+            listOfWeeks.add(i)
+        }
+    }
 
     private fun getCurrentWeek(): Long {
         val currentTime = System.currentTimeMillis()
