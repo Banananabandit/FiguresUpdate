@@ -1,13 +1,27 @@
 package android.banananabandit.figuresupdate
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.*
 
+@Entity(tableName = "week")
 data class FinancialWeek(
-    // TODO: add date range for a given week
+//    @PrimaryKey(autoGenerate = true)
+//    @ColumnInfo(name = "id")
+//    val id: Int,
+
+    @PrimaryKey
+    @ColumnInfo(name = "week_number")
     val weekNumber: Int,
 
+    @ColumnInfo(name = "week_target")
     val weekTarget: Int,
+
+    @ColumnInfo(name = "week_target_achieved")
     val weekTargetAchieved: Int,
+
+    @ColumnInfo(name = "target_achieved")
     val weeklyTargetIsAchieved: Boolean,
 
     val sundayFigure: Int,
@@ -26,14 +40,6 @@ data class FinancialWeek(
         private var weekNumeral: Int = 0
         private val random = Random()
 
-        // Need to find a way to initialize weeklyTargetIsAchieved
-        fun generateWeek(): FinancialWeek {
-            return FinancialWeek(
-                0, rand(2000, 3000), rand(2000, 3000),
-                false, 0, 0, 0, 0,
-                0, 0, 0,
-            )
-        }
 
         private fun rand(from: Int, to: Int): Int {
             return random.nextInt(to - from) + from

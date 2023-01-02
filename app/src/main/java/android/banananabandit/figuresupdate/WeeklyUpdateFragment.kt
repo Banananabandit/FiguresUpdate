@@ -10,19 +10,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
 class WeeklyUpdateFragment : Fragment() {
-    private var _binding : FragmentWeeklyUpdateBinding? = null
+    private var _binding: FragmentWeeklyUpdateBinding? = null
     private val binding get() = _binding!!
     private var listOfWeeks = ArrayList<FinancialWeek>()
-    private lateinit var adapter : TargetNumbersAdapter
+    private lateinit var adapter: TargetNumbersAdapter
 
+    private var financialWeekDao = FinancialWeeksDb.getDaoInstance(WeeksApplication.getAppContext())
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentWeeklyUpdateBinding.inflate(inflater, container, false)
+
+        retrieveFinancialWeeks()
 
         adapter = TargetNumbersAdapter(listOfWeeks)
         binding.rvWeekTargets.adapter = adapter
@@ -35,6 +44,17 @@ class WeeklyUpdateFragment : Fragment() {
         return binding.root
     }
 
+    private fun retrieveFinancialWeeks() {
+        listOfWeeks.clear()
+        lifecycleScope.launch {
+            val list = financialWeekDao.getAll()
+            for (i in list) {
+                listOfWeeks.add(i)
+            }
+        }
+    }
+
+
     private fun addNewWeekDialog() {
         val addWeekDialog = Dialog(requireContext(), R.style.Theme_AppCompat_Dialog)
         addWeekDialog.setCancelable(false)
@@ -45,7 +65,7 @@ class WeeklyUpdateFragment : Fragment() {
         binding.tvWeekNumber.text = getCurrentWeek().toString()
 
         binding.imgbtnEditWeekNumber.setOnClickListener {
-            if (binding.tvWeekNumber.isVisible){
+            if (binding.tvWeekNumber.isVisible) {
                 binding.tvWeekNumber.visibility = View.GONE
                 binding.etWeekNumber.visibility = View.VISIBLE
                 binding.etWeekNumber.requestFocus()
@@ -59,10 +79,6 @@ class WeeklyUpdateFragment : Fragment() {
             binding.tvWeekNumber.text = binding.etWeekNumber.text.toString()
 
             val currentWeek = getCurrentWeek()
-
-//            var weekNumber = 0
-//            var weekBudget= 0
-//            var weekAchievedAmount= 0
 
             val weekNumber = if (binding.etWeekNumber.text.isBlank()) {
                 currentWeek.toInt()
@@ -84,7 +100,7 @@ class WeeklyUpdateFragment : Fragment() {
 
             var found = false
 
-            for (item in listOfWeeks){
+            for (item in listOfWeeks) {
                 if (item.weekNumber == weekNumber) {
                     found = true
                     break
@@ -94,9 +110,26 @@ class WeeklyUpdateFragment : Fragment() {
             if (found) {
                 Toast.makeText(context, "Week already exists", Toast.LENGTH_SHORT).show()
             } else {
-                val newWeek = FinancialWeek(weekNumber, weekBudget, weekAchievedAmount, false, 0, 0, 0, 0, 0, 0, 0, false, false)
-                listOfWeeks.add(newWeek)
+                val newWeek = FinancialWeek(
+                    weekNumber,
+                    weekBudget,
+                    weekAchievedAmount,
+                    false,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    false,
+                    false
+                )
+                lifecycleScope.launch {
+                    financialWeekDao.insert(newWeek)
+                }
                 sortWeeks()
+                retrieveFinancialWeeks()
                 adapter.notifyDataSetChanged()
                 addWeekDialog.dismiss()
             }
@@ -121,6 +154,7 @@ class WeeklyUpdateFragment : Fragment() {
     private fun getCurrentWeek(): Long {
         val currentTime = System.currentTimeMillis()
         val c = Calendar.getInstance()
+        // TODO: And also add logic to start week from Sunday
         // To set the month and the day, it whould start with 0 as the first day
         // Later on will need logic to set the year to a current financial year
         c.set(2022, 3, 0)
