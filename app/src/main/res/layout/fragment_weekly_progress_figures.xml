@@ -75,38 +75,61 @@
         app:layout_constraintStart_toEndOf="@id/week_achieved"
         app:layout_constraintTop_toBottomOf="@id/week"/>
 
-    <TextView
-        android:id="@+id/dow_sunday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sunday:"
-        android:textSize="28sp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_list_of_dow"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_week_target_number"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        tools:listitem="@layout/dow_list_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_week_target_number"/>
 
-    <com.google.android.material.internal.BaselineLayout
-        android:id="@+id/baseline_sales_number"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="30dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_week_target_number"
-        app:layout_constraintStart_toEndOf="@id/dow_sunday"/>
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="502"
-        android:textSize="28sp"
-        app:layout_constraintStart_toEndOf="@id/baseline_sales_number"
-        app:layout_constraintBottom_toBottomOf="@id/dow_sunday"/>
+        android:layout_marginTop="16dp"
+        android:id="@+id/toggleButtonGroup"
+        app:layout_constraintTop_toBottomOf="@id/rv_list_of_dow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:singleSelection="true">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Progress"
+        android:layout_weight="1"
+        android:id="@+id/switchProgress"
+        app:layout_constraintStart_toStartOf="@id/toggleButtonGroup"
+        app:layout_constraintTop_toTopOf="@id/toggleButtonGroup"
+        app:layout_constraintEnd_toStartOf="@+id/switchEoWReport"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="EoW Report"
+        android:layout_weight="1"
+        android:id="@+id/switchEoWReport"
+        app:layout_constraintTop_toTopOf="@id/toggleButtonGroup"
+        app:layout_constraintStart_toEndOf="@+id/switchProgress"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <com.google.android.material.internal.BaselineLayout
-        android:id="@+id/baseline_atv_number"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="100dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_week_target_number"
-        app:layout_constraintStart_toEndOf="@id/baseline_sales_number"/>
-    
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/generateReportButton"
+        android:text="generate"
+        app:layout_constraintTop_toBottomOf="@id/toggleButtonGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="41sp" />
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="@id/generateReportButton"
+        app:layout_constraintTop_toBottomOf="@id/generateReportButton"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

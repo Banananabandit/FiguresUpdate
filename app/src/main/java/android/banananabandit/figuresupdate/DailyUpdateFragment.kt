@@ -34,10 +34,14 @@ class DailyUpdateFragment : Fragment() {
     lateinit var shareButton: Button
     lateinit var toggleButtonGroup: MaterialButtonToggleGroup
 
-    private var _binding : FragmentDailyUpdateBinding? = null
+    private var _binding: FragmentDailyUpdateBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
         _binding = FragmentDailyUpdateBinding.inflate(inflater, container, false)
 
@@ -59,7 +63,7 @@ class DailyUpdateFragment : Fragment() {
             when (checkedId) {
                 R.id.switchUpdate -> {
                     if (isChecked) {
-                        if (entriesNotEmpty){
+                        if (entriesNotEmpty) {
                             resultMessage =
                                 "Update £$result $numberOfCustomers trans £$finalAtvFigure ATV"
                         } else {
@@ -69,7 +73,7 @@ class DailyUpdateFragment : Fragment() {
                 }
                 R.id.switchFinal -> {
                     if (isChecked) {
-                        if (entriesNotEmpty){
+                        if (entriesNotEmpty) {
                             resultMessage =
                                 "Finished today on £$result $numberOfCustomers trans £$finalAtvFigure ATV"
                         } else {
@@ -115,6 +119,7 @@ class DailyUpdateFragment : Fragment() {
 
         figureResult.text = "Result:"
         atvResult.text = "ATV:"
+
     }
 
     private fun updateAtvTextView() {
@@ -133,18 +138,18 @@ class DailyUpdateFragment : Fragment() {
     }
 
     private fun whatsAppResultShare() {
-            val intent = Intent()
-            intent.action = Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, resultMessage)
-            intent.type = "text/plain"
-            intent.setPackage("com.whatsapp")
-            startActivity(intent)
-        }
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.putExtra(Intent.EXTRA_TEXT, resultMessage)
+        intent.type = "text/plain"
+        intent.setPackage("com.whatsapp")
+        startActivity(intent)
+    }
 
-        override fun onResume() {
-            super.onResume()
-            figureInput.requestFocus()
-        }
+    override fun onResume() {
+        super.onResume()
+        figureInput.requestFocus()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

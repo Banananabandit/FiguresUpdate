@@ -20,8 +20,6 @@ class TargetNumbersAdapter(private val mWeekTargets: ArrayList<FinancialWeek>): 
                 itemBinding.targetMissed.visibility = View.GONE
                 itemBinding.targetAchieved.visibility = View.VISIBLE
             }
-
-            // Need to get the logic for changing the color of the iv- possibly a separate fun
         }
     }
 
