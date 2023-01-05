@@ -75,21 +75,432 @@
         app:layout_constraintStart_toEndOf="@id/week_achieved"
         app:layout_constraintTop_toBottomOf="@id/week"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list_of_dow"
+    <TextView
+        android:id="@+id/dow_sun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Sunday:"
+        android:textSize="28sp"
         android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        tools:listitem="@layout/dow_list_item"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_week_target_number"/>
+        app:layout_constraintTop_toBottomOf="@+id/week_target"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.internal.BaselineLayout
+        android:id="@+id/baseline_sales_number"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="60dp"
+        app:layout_constraintStart_toEndOf="@id/dow_sun"/>
+    <TextView
+        android:id="@+id/sales_sun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="502"
+        android:textSize="28sp"
+        app:layout_constraintStart_toEndOf="@id/baseline_sales_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_sun"/>
+
+    <com.google.android.material.internal.BaselineLayout
+        android:id="@+id/baseline_atv_number"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="130dp"
+        app:layout_constraintStart_toEndOf="@id/baseline_sales_number"/>
+    <TextView
+        android:id="@+id/trans_sun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="trans: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintTop_toTopOf="@id/dow_sun"/>
+    <TextView
+        android:id="@+id/tv_trans_num_sum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="43"
+        app:layout_constraintStart_toEndOf="@id/trans_sun"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_sun"/>
+    <TextView
+        android:id="@+id/atv_sun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="atv: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_sun" />
+    <TextView
+        android:id="@+id/tv_atv_num_sun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13"
+        app:layout_constraintBottom_toBottomOf="@id/atv_sun"
+        app:layout_constraintStart_toStartOf="@id/tv_trans_num_sum"/>
+
+    <ImageButton
+        android:id="@+id/btn_edit_sun"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/dow_sun"
+        />
+
+    <TextView
+        android:id="@+id/dow_mon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Monday:"
+        android:textSize="28sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/dow_sun"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/sales_mon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="502"
+        android:textSize="28sp"
+        app:layout_constraintStart_toEndOf="@id/baseline_sales_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_mon"/>
+
+    <TextView
+        android:id="@+id/trans_mon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="trans: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintTop_toTopOf="@id/dow_mon"/>
+    <TextView
+        android:id="@+id/tv_trans_num_mon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="43"
+        app:layout_constraintStart_toEndOf="@id/trans_mon"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_mon"/>
+    <TextView
+        android:id="@+id/atv_mon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="atv: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_mon" />
+    <TextView
+        android:id="@+id/tv_atv_num_mon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13"
+        app:layout_constraintBottom_toBottomOf="@id/atv_mon"
+        app:layout_constraintStart_toStartOf="@id/tv_trans_num_mon"/>
+
+    <ImageButton
+        android:id="@+id/btn_edit_mon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/dow_mon"
+        />
+
+    <TextView
+        android:id="@+id/dow_tues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Tuesday:"
+        android:textSize="28sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/dow_mon"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/sales_tues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="502"
+        android:textSize="28sp"
+        app:layout_constraintStart_toEndOf="@id/baseline_sales_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_tues"/>
+
+    <TextView
+        android:id="@+id/trans_tues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="trans: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintTop_toTopOf="@id/dow_tues"/>
+    <TextView
+        android:id="@+id/tv_trans_num_tues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="43"
+        app:layout_constraintStart_toEndOf="@id/trans_tues"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_tues"/>
+    <TextView
+        android:id="@+id/atv_tues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="atv: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_tues" />
+    <TextView
+        android:id="@+id/tv_atv_num_tues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13"
+        app:layout_constraintBottom_toBottomOf="@id/atv_tues"
+        app:layout_constraintStart_toStartOf="@id/tv_trans_num_tues"/>
+
+    <ImageButton
+        android:id="@+id/btn_edit_tues"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/dow_tues"
+        />
+
+    <TextView
+        android:id="@+id/dow_wed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Wednesday:"
+        android:textSize="28sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/dow_tues"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/sales_wed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="502"
+        android:textSize="28sp"
+        app:layout_constraintStart_toEndOf="@id/baseline_sales_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_wed"/>
+
+    <TextView
+        android:id="@+id/trans_wed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="trans: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintTop_toTopOf="@id/dow_wed"/>
+    <TextView
+        android:id="@+id/tv_trans_num_wed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="43"
+        app:layout_constraintStart_toEndOf="@id/trans_wed"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_wed"/>
+    <TextView
+        android:id="@+id/atv_wed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="atv: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_wed" />
+    <TextView
+        android:id="@+id/tv_atv_num_wed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13"
+        app:layout_constraintBottom_toBottomOf="@id/atv_wed"
+        app:layout_constraintStart_toStartOf="@id/tv_trans_num_wed"/>
+
+    <ImageButton
+        android:id="@+id/btn_edit_wed"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/dow_wed"
+        />
+
+    <TextView
+        android:id="@+id/dow_thurs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Thursday:"
+        android:textSize="28sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/dow_wed"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/sales_thurs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="502"
+        android:textSize="28sp"
+        app:layout_constraintStart_toEndOf="@id/baseline_sales_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_thurs"/>
+
+    <TextView
+        android:id="@+id/trans_thurs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="trans: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintTop_toTopOf="@id/dow_thurs"/>
+    <TextView
+        android:id="@+id/tv_trans_num_thurs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="43"
+        app:layout_constraintStart_toEndOf="@id/trans_thurs"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_thurs"/>
+    <TextView
+        android:id="@+id/atv_thurs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="atv: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_thurs" />
+    <TextView
+        android:id="@+id/tv_atv_num_thurs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13"
+        app:layout_constraintBottom_toBottomOf="@id/atv_thurs"
+        app:layout_constraintStart_toStartOf="@id/tv_trans_num_thurs"/>
+
+    <ImageButton
+        android:id="@+id/btn_edit_thurs"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/dow_thurs"
+        />
+
+    <TextView
+        android:id="@+id/dow_fri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Friday:"
+        android:textSize="28sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/dow_thurs"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/sales_fri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="502"
+        android:textSize="28sp"
+        app:layout_constraintStart_toEndOf="@id/baseline_sales_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_fri"/>
+
+    <TextView
+        android:id="@+id/trans_fri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="trans: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintTop_toTopOf="@id/dow_fri"/>
+    <TextView
+        android:id="@+id/tv_trans_num_fri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="43"
+        app:layout_constraintStart_toEndOf="@id/trans_fri"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_fri"/>
+    <TextView
+        android:id="@+id/atv_fri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="atv: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_fri" />
+    <TextView
+        android:id="@+id/tv_atv_num_fri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13"
+        app:layout_constraintBottom_toBottomOf="@id/atv_fri"
+        app:layout_constraintStart_toStartOf="@id/tv_trans_num_fri"/>
+
+    <ImageButton
+        android:id="@+id/btn_edit_fri"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/dow_fri"
+        />
+
+    <TextView
+        android:id="@+id/dow_sat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Saturday:"
+        android:textSize="28sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/dow_fri"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/sales_sat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="502"
+        android:textSize="28sp"
+        app:layout_constraintStart_toEndOf="@id/baseline_sales_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_sat"/>
+
+    <TextView
+        android:id="@+id/trans_sat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="trans: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintTop_toTopOf="@id/dow_sat"/>
+    <TextView
+        android:id="@+id/tv_trans_num_sat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="43"
+        app:layout_constraintStart_toEndOf="@id/trans_sat"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_sat"/>
+    <TextView
+        android:id="@+id/atv_sat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="atv: "
+        app:layout_constraintStart_toStartOf="@+id/baseline_atv_number"
+        app:layout_constraintBottom_toBottomOf="@id/dow_sat" />
+    <TextView
+        android:id="@+id/tv_atv_num_sat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="13"
+        app:layout_constraintBottom_toBottomOf="@id/atv_sat"
+        app:layout_constraintStart_toStartOf="@id/tv_trans_num_sat"/>
+
+    <ImageButton
+        android:id="@+id/btn_edit_sat"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/dow_sat"
+        />
+
+
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:id="@+id/toggleButtonGroup"
-        app:layout_constraintTop_toBottomOf="@id/rv_list_of_dow"
+        app:layout_constraintTop_toBottomOf="@+id/dow_sat"
         app:layout_constraintStart_toStartOf="parent"
         app:singleSelection="true">
     <Button
@@ -122,14 +533,15 @@
         android:layout_marginTop="10dp"
         android:id="@+id/generateReportButton"
         android:text="generate"
-        app:layout_constraintTop_toBottomOf="@id/toggleButtonGroup"
+        app:layout_constraintBottom_toTopOf="@+id/ib_back"
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="41sp" />
     <ImageButton
+        android:id="@+id/ib_back"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/ic_baseline_arrow_back_24"
         android:background="@null"
-        app:layout_constraintStart_toStartOf="@id/generateReportButton"
-        app:layout_constraintTop_toBottomOf="@id/generateReportButton"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

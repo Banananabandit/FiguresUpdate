@@ -122,6 +122,13 @@ class WeeklyUpdateFragment : Fragment() {
                     0,
                     0,
                     0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
                     false,
                     false
                 )

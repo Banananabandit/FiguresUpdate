@@ -7,10 +7,8 @@ import java.util.*
 
 @Entity(tableName = "week")
 data class FinancialWeek(
-//    @PrimaryKey(autoGenerate = true)
-//    @ColumnInfo(name = "id")
-//    val id: Int,
-
+    // TODO: still probably going to have to reintroduce either the id or code the week number as something like 43_2023
+    
     @PrimaryKey
     @ColumnInfo(name = "week_number")
     val weekNumber: Int,
@@ -31,6 +29,14 @@ data class FinancialWeek(
     val thursdayFigure: Int,
     val fridayFigure: Int,
     val saturdayFigure: Int,
+
+    val sundayTransactions: Int,
+    val mondayTransactions: Int,
+    val tuesdayTransactions: Int,
+    val wednesdayTransactions: Int,
+    val thursdayTransactions: Int,
+    val fridayTransactions: Int,
+    val saturdayTransactions: Int,
 
     val weekCompleted: Boolean = true,
     val isCurrentWeek: Boolean = false
