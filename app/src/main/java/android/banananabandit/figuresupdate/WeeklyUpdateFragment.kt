@@ -3,7 +3,9 @@ package android.banananabandit.figuresupdate
 import android.app.Dialog
 import android.banananabandit.figuresupdate.databinding.CreateNewWeekDialogBinding
 import android.banananabandit.figuresupdate.databinding.FragmentWeeklyUpdateBinding
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +33,7 @@ class WeeklyUpdateFragment : Fragment() {
     ): View? {
         _binding = FragmentWeeklyUpdateBinding.inflate(inflater, container, false)
 
-        retrieveFinancialWeeks()
+        listOfWeeks = retrieveFinancialWeeks()
 
         adapter = TargetNumbersAdapter(listOfWeeks)
         binding.rvWeekTargets.adapter = adapter
@@ -44,14 +46,16 @@ class WeeklyUpdateFragment : Fragment() {
         return binding.root
     }
 
-    private fun retrieveFinancialWeeks() {
-        listOfWeeks.clear()
+    private fun retrieveFinancialWeeks() : ArrayList<FinancialWeek>{
+        val newList = ArrayList<FinancialWeek>()
+
         lifecycleScope.launch {
-            val list = financialWeekDao.getAll()
+            var list = financialWeekDao.getAll()
             for (i in list) {
-                listOfWeeks.add(i)
+                newList.add(i)
             }
         }
+        return newList
     }
 
 
@@ -111,6 +115,7 @@ class WeeklyUpdateFragment : Fragment() {
                 Toast.makeText(context, "Week already exists", Toast.LENGTH_SHORT).show()
             } else {
                 val newWeek = FinancialWeek(
+                    0,
                     weekNumber,
                     weekBudget,
                     weekAchievedAmount,
@@ -135,8 +140,10 @@ class WeeklyUpdateFragment : Fragment() {
                 lifecycleScope.launch {
                     financialWeekDao.insert(newWeek)
                 }
+
+                listOfWeeks = retrieveFinancialWeeks()
+                Log.d(TAG, "addNewWeekDialog: dfkl;adasklfjasdlfjkas;klfjkladjfkl;jklsdfkl ${listOfWeeks.size}")
                 sortWeeks()
-                retrieveFinancialWeeks()
                 adapter.notifyDataSetChanged()
                 addWeekDialog.dismiss()
             }

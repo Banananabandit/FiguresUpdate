@@ -9,7 +9,9 @@ import java.util.*
 data class FinancialWeek(
     // TODO: still probably going to have to reintroduce either the id or code the week number as something like 43_2023
     
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
+
     @ColumnInfo(name = "week_number")
     val weekNumber: Int,
 

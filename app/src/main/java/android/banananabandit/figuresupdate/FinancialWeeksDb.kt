@@ -6,9 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [FinancialWeek::class],
-    version = 1,
-    exportSchema = false
+    entities = [FinancialWeek::class], version = 1, exportSchema = false
 )
 abstract class FinancialWeeksDb : RoomDatabase() {
     abstract val dao: FinancialWeekDao
